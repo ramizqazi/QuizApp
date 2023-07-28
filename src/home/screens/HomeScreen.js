@@ -17,7 +17,7 @@ const HomeScreen = () => {
       <FlatList
         data={items}
         renderItem={renderItem}
-        keyExtractor={item => item?.id}
+        keyExtractor={(item, i) => i}
         ListHeaderComponent={HomeHeader}
         ListEmptyComponent={HomeEmpty}
       />
@@ -42,15 +42,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 20,
     backgroundColor: '#043d72',
-  },
-  settingsBtn: {
-    alignSelf: 'flex-end',
-    paddingLeft: 20,
-    paddingVertical: 20,
-  },
-  titleTxt: {
-    color: '#fff',
-    fontSize: 24,
   },
   item: {
     marginTop: 20,
