@@ -1,9 +1,10 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Feather from 'react-native-vector-icons/Feather';
 import {
   View,
   Text,
+  Alert,
   Button,
   ScrollView,
   StyleSheet,
@@ -13,19 +14,33 @@ import {
 import { useForm, useFieldArray } from 'react-hook-form';
 
 import FormInput from '../components/FormInput';
-import { addItem } from '../redux/actions';
+import { addQuize } from '../redux/actions';
+import { getQuizeById } from '../redux/selectors';
 
 /* =============================================================================
 <CreateQuizScreen />
 ============================================================================= */
-const CreateQuizScreen = () => {
+const CreateQuizScreen = ({ route }) => {
+  const id = route.params?.id;
+  const quiz = useSelector(state => getQuizeById(state, id));
+
   const dispatch = useDispatch();
   const { control, handleSubmit, reset } = useForm({
-    defaultValues: {
-      name: '',
-      flashcard: [{ question: { value: '' }, answer: { value: '' } }],
-    },
+    defaultValues: quiz
+      ? quiz
+      : {
+          name: '',
+          flashcard: [{ question: { value: '' }, answer: { value: '' } }],
+        },
   });
+
+  // SET DEFAULT VALUE OF QUIZ IF ITS THERE
+  useEffect(() => {
+    if (quiz) {
+      reset(quiz);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quiz]);
 
   const { fields, append } = useFieldArray({
     control,
@@ -33,7 +48,13 @@ const CreateQuizScreen = () => {
   });
 
   const onSubmit = values => {
-    dispatch(addItem(values));
+    const newItemId = 'id' + Math.random().toString(16).slice(2);
+
+    if (values.name) {
+      dispatch(addQuize({ ...values, id: id ? id : newItemId }));
+    } else {
+      Alert.alert('Alert', 'Please fill the form');
+    }
     reset();
   };
 
@@ -47,7 +68,7 @@ const CreateQuizScreen = () => {
         <View style={styles.dynamicFormContainer}>
           {fields.map((f, i) => (
             <View key={f.id} style={styles.formItem}>
-              <Text>Flashcard {i + 1}:</Text>
+              <Text style={{ color: 'white' }}>Flashcar {i + 1}:</Text>
               <FormInput
                 placeholder="Question"
                 name={`flashcard.${i}.question.value`}

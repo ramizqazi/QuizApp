@@ -2,24 +2,24 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { View, StyleSheet, FlatList, Text } from 'react-native';
 
-import HomeHeader from '../components/HomeHeader';
-import HomeQuizItem from '../components/HomeQuizItem';
+import QuizHeader from '../components/QuizHeader';
+import HomeQuizItem from '../../home/components/HomeQuizItem';
 
-import { getRecentlyusedQuiz } from '../redux/selectors';
+import { getQuizes } from '../../home/redux/selectors';
 
 /* =============================================================================
-<HomeScreen />
+<QuizesScreen />
 ============================================================================= */
-const HomeScreen = () => {
-  const recentlyUsed = useSelector(state => getRecentlyusedQuiz(state));
+const QuizesScreen = () => {
+  const quizes = useSelector(state => getQuizes(state));
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={recentlyUsed}
+        data={quizes}
         renderItem={renderItem}
         keyExtractor={item => item.id}
-        ListHeaderComponent={HomeHeader}
+        ListHeaderComponent={QuizHeader}
         ListEmptyComponent={HomeEmpty}
       />
     </View>
@@ -29,7 +29,7 @@ const renderItem = ({ item }) => <HomeQuizItem key={item.id} item={item} />;
 
 const HomeEmpty = () => (
   <View style={styles.emptyContainer}>
-    <Text style={styles.emptyTxt}>No Recently Quiz Found</Text>
+    <Text style={styles.emptyTxt}>No Quiz Found</Text>
   </View>
 );
 
@@ -65,4 +65,4 @@ const styles = StyleSheet.create({
 
 /* Export
 ============================================================================= */
-export default HomeScreen;
+export default QuizesScreen;
