@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Feather from 'react-native-vector-icons/Feather';
@@ -30,7 +31,9 @@ const CreateQuizScreen = ({ route }) => {
       ? quiz
       : {
           name: '',
-          flashcard: [{ question: { value: '' }, answer: { value: '' } }],
+          flashcard: [
+            { id: 0, question: { value: '' }, answer: { value: '' } },
+          ],
         },
   });
 
@@ -85,7 +88,11 @@ const CreateQuizScreen = ({ route }) => {
         <Button
           title="Add Flashcard"
           onPress={() =>
-            append({ question: { value: '' }, answer: { value: '' } })
+            append({
+              id: fields.length + 1,
+              question: { value: '' },
+              answer: { value: '' },
+            })
           }
         />
       </ScrollView>

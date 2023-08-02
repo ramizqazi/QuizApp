@@ -25,7 +25,7 @@ const HomeScreen = () => {
     </View>
   );
 };
-const renderItem = ({ item }) => <HomeQuizItem key={item.id} item={item} />;
+const renderItem = ({ item }) => <HomeQuizItem key={item.id} id={item.id} />;
 
 const HomeEmpty = () => (
   <View style={styles.emptyContainer}>

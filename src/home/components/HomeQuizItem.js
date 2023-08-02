@@ -1,20 +1,28 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import Feather from 'react-native-vector-icons/Feather';
 import { StyleSheet, Text, Pressable } from 'react-native';
 
 import { useNavigation } from '@react-navigation/native';
+import { getQuizeById } from '../redux/selectors';
 
 /* =============================================================================
 <HomeQuizItem />
 ============================================================================= */
-const HomeQuizItem = ({ item }) => {
+const HomeQuizItem = ({ id }) => {
   const navigation = useNavigation();
-
+  const quiz = useSelector(state => getQuizeById(state, id));
+  console.log(id);
   return (
     <Pressable
       style={styles.item}
-      onPress={() => navigation.navigate('Quiz', { id: item.id })}>
-      <Text style={styles.itemTxt}>{item.name}</Text>
+      onPress={() =>
+        navigation.navigate('QuizeStack', {
+          screen: 'QuizeStart',
+          params: { id: quiz?.id },
+        })
+      }>
+      <Text style={styles.itemTxt}>{quiz?.name}</Text>
       <Feather name="chevron-right" color="#000" size={22} />
     </Pressable>
   );

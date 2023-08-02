@@ -9,17 +9,33 @@ import {
   KeyboardAvoidingView,
   TouchableOpacity,
 } from 'react-native';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { getQuizeById } from '../../home/redux/selectors';
+import { getQuizeById, getRecentQuizeById } from '../../home/redux/selectors';
+import { addRecentQuizes } from '../../home/redux/actions';
 
 /* =============================================================================
-<CreateQuizScreen />
+<QuizeStartScreen />
 ============================================================================= */
-const CreateQuizScreen = ({ route, navigation }) => {
+const QuizeStartScreen = ({ route, navigation }) => {
   const id = route.params.id;
+  const dispatch = useDispatch();
   const quiz = useSelector(state => getQuizeById(state, id));
-  console.log(quiz);
+  const isRecentQuize = useSelector(state => getRecentQuizeById(state, id));
+
+  const _handleStartPress = () => {
+    if (!isRecentQuize) {
+      dispatch(
+        addRecentQuizes({
+          ...quiz,
+          answers: [],
+          lastAnsweredQuestion: 0,
+        }),
+      );
+    }
+    navigation.navigate('Quize', { id: id });
+  };
+
   return (
     <KeyboardAvoidingView style={styles.container}>
       <ScrollView
@@ -33,7 +49,11 @@ const CreateQuizScreen = ({ route, navigation }) => {
             }>{`Total number of cards: ${quiz?.flashcard.length}`}</Text>
         </View>
         <View style={styles.btnsContainer}>
-          <Button title="Start Quiz" color="#ae5eff" />
+          <Button
+            title={isRecentQuize ? 'Resume Quize' : 'Start Quiz'}
+            color="#ae5eff"
+            onPress={_handleStartPress}
+          />
         </View>
         <TouchableOpacity
           style={styles.editBtn}
@@ -96,4 +116,4 @@ const styles = StyleSheet.create({
 
 /* Export
 ============================================================================= */
-export default CreateQuizScreen;
+export default QuizeStartScreen;

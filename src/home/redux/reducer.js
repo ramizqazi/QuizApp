@@ -19,7 +19,17 @@ export const slice = createSlice({
         : [...state.quizes, action.payload];
     },
     addRecentQuizes: (state, action) => {
-      state.recentQuizes = [...state.recentQuizes, action.payload];
+      const isPresent = state.recentQuizes.find(
+        i => i.id === action.payload.id,
+      );
+
+      state.recentQuizes = isPresent
+        ? [
+            ...state.recentQuizes.filter(q => q.id !== action.payload.id),
+            action.payload,
+          ]
+        : [...state.recentQuizes, action.payload];
+      console.log('lund', state.recentQuizes[0].answers);
     },
   },
 });
