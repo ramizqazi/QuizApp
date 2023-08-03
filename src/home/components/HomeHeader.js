@@ -1,6 +1,5 @@
 import React from 'react';
-import Feather from 'react-native-vector-icons/Feather';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 
 /* =============================================================================
 <HomeHeader />
@@ -8,9 +7,6 @@ import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 const HomeHeader = () => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.settingsBtn}>
-        <Feather name="settings" color="#fff" size={22} />
-      </TouchableOpacity>
       <Text style={styles.titleTxt}>Recently used:</Text>
     </View>
   );
@@ -19,6 +15,7 @@ const HomeHeader = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginTop: 35,
   },
   settingsBtn: {
     alignSelf: 'flex-end',

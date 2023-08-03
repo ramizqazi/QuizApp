@@ -1,6 +1,5 @@
 import React from 'react';
-import Feather from 'react-native-vector-icons/Feather';
-import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 
 /* =============================================================================
 <QuizHeader />
@@ -8,9 +7,6 @@ import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 const QuizHeader = () => {
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.settingsBtn}>
-        <Feather name="settings" color="#fff" size={22} />
-      </TouchableOpacity>
       <Text style={styles.titleTxt}>Saved Quizes:</Text>
     </View>
   );
@@ -19,6 +15,7 @@ const QuizHeader = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 35,
   },
   settingsBtn: {
     alignSelf: 'flex-end',

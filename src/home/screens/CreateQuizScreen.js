@@ -63,15 +63,14 @@ const CreateQuizScreen = ({ route }) => {
 
   return (
     <KeyboardAvoidingView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <TouchableOpacity style={styles.settingsBtn}>
-          <Feather name="settings" color="#fff" size={22} />
-        </TouchableOpacity>
+      <ScrollView
+        contentContainerStyle={{ paddingTop: 35 }}
+        showsVerticalScrollIndicator={false}>
         <FormInput placeholder="Enter Set Name" name="name" control={control} />
         <View style={styles.dynamicFormContainer}>
           {fields.map((f, i) => (
             <View key={f.id} style={styles.formItem}>
-              <Text style={{ color: 'white' }}>Flashcar {i + 1}:</Text>
+              <Text style={{ color: 'white' }}>Flashcard {i + 1}:</Text>
               <FormInput
                 placeholder="Question"
                 name={`flashcard.${i}.question.value`}
@@ -107,7 +106,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: 20,
-    backgroundColor: '#043d72',
+    backgroundColor: '#001146',
     justifyContent: 'space-between',
   },
   settingsBtn: {

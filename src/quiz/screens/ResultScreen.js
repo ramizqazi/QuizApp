@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     rowGap: 20,
     paddingHorizontal: 20,
     paddingVertical: 20,
-    backgroundColor: '#043d72',
+    backgroundColor: '#001146',
   },
   card: {
     borderWidth: 1,

@@ -111,9 +111,9 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     rowGap: 20,
-    paddingVertical: 20,
+    paddingVertical: 35,
     alignItems: 'center',
-    backgroundColor: '#043d72',
+    backgroundColor: '#001146',
   },
   header: {
     columnGap: 10,
